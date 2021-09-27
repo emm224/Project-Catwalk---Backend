@@ -1,0 +1,28 @@
+{
+  "name": "sdc",
+  "version": "1.0.0",
+  "description": "System Design Capstone Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoctisSDC/SDC.git"
+  },
+  "author": "Team Noctis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoctisSDC/SDC/issues"
+  },
+  "homepage": "https://github.com/NoctisSDC/SDC#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "express": "^4.17.1",
+    "jest": "^27.2.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.13",
+    "path": "^0.12.7"
+  }
+}
