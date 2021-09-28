@@ -1,0 +1,1 @@
+module.exports.QuestionsAndAnswers = require ('./QuestionsAndAnswers.js');
