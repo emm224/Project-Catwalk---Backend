@@ -1,0 +1,1 @@
+export.QuestionsAndAnswer = require('./QuestionsAndAnswers.js');
