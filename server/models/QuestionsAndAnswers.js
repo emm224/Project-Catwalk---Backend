@@ -1,4 +1,4 @@
-const db = require('../../database').QuestionsAndAnswers;
+const db = require('../../database').questionsAndAnswers;
 
 module.exports = {
   get: callback => {

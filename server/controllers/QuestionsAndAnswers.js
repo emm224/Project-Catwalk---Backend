@@ -1,4 +1,4 @@
-const models = require('../models').QuestionsAndAnswers;
+const models = require('../models').questionsAndAnswers;
 
 module.exports = {
   get: (req, res) => {

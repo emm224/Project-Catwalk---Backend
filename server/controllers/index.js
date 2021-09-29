@@ -1,1 +1,1 @@
-exports.QuestionsAndAnswers = require('./questionsAndAnswers.js');
+exports.questionsAndAnswers = require('./questionsAndAnswers.js');
