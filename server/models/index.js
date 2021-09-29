@@ -1,3 +1,3 @@
 exports.questionsAndAnswers = require('./questionsAndAnswers.js');
-exports.reviews = require('./reviews.js')
-
+exports.Products = require('./products.js');
+exports.reviews = require('./reviews.js');

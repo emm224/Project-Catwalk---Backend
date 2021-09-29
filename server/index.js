@@ -12,6 +12,6 @@ app.use(morgan('dev'));
 
 app.use('/api', router);
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`listening on port ${port}`);
 });
