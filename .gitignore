@@ -1,2 +1,4 @@
 node_modules
 CSV_files
+.DS_Store
+database/.DS_Store
