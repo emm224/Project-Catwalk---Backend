@@ -1,1 +1,2 @@
-export.QuestionsAndAnswer = require('./QuestionsAndAnswers.js');
+exports.QuestionsAndAnswers = require('./QuestionsAndAnswers.js');
+exports.reviews = require('./ratings_reviews.js')

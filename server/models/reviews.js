@@ -1,12 +1,12 @@
-const db = require('../../database').Reviews;
+const db = require('../../database').reviews;
 
 module.exports = {
   getAll: function (callback) {
-    db.query('SELECT * FROM reviews Limit 5', (err, reviewData) => {
+    db.query('SELECT * FROM reviews Limit 25', (err, reviewData) => {
       if(err) {
-        console.log(err)
+        callback(err)
       } else {
-        console.log(reviewData.rows)
+        callback(null, reviewData.rows)
       }
     });
   }

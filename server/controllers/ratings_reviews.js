@@ -4,9 +4,9 @@ module.exports = {
   getReviews: function (req, res) {
     models.reviews.getAll((err, productReview) => {
       if (err) {
-        res.send(400 + 'Product was not found');
+        res.send(400 + ' Product Reviews was not found');
       } else {
-        res.json(productStyles);
+        res.json(productReview);
       }
     })
   }

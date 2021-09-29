@@ -1,4 +1,6 @@
-const { Client } = require('pg');
-const client = new Client();
+const { Pool } = require('pg');
+const pool = new Pool({database: 'questionsandanswers'});
 
-client.connect();
+pool.connect();
+
+module.exports = pool;
