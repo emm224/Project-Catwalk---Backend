@@ -3,4 +3,7 @@ let router = require('express').Router();
 
 router.get('/qa', controller.QuestionsAndAnswers.get);
 
+// Products API Endpoints
+router.get('/products', controller.Products.get);
+
 module.exports = router;
