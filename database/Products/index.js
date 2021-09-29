@@ -1,6 +1,11 @@
-<<<<<<< HEAD
-// const { Client } = require('pg')
-// const client = new Client()
-// await client.connect()
-=======
->>>>>>> main
+const { Pool } = require('pg');
+const pool = new Pool({ database: 'productsapi' });
+pool.connect()
+  .then(() => {
+    console.log('Connection established');
+  })
+  .catch(error => {
+    console.error(error);
+  })
+
+module.exports = pool;
