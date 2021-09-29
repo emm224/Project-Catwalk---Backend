@@ -1,5 +1,5 @@
 node_modules
-CSV_files
+database/QuestionsAndAnswers/CSV_files
 database/Products/csv
 .DS_Store
 database/.DS_Store
