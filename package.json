@@ -4,7 +4,7 @@
   "description": "System Design Capstone Project",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "jest",
     "start": "nodemon server/index.js"
   },
   "repository": {
