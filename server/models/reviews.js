@@ -250,16 +250,18 @@ module.exports = {
           console.log('this is id', id)
           let queryArray = [];
 
-          for (var i = 0; i < photos.length; i++) {
-            var addPhotos = `
-              insert into
-                photos(review_id, url)
-              values
-                ($1, $2)
+          if (photos.length > 0) {
+            for (var i = 0; i < photos.length; i++) {
+              var addPhotos = `
+                insert into
+                  photos(review_id, url)
+                values
+                  ($1, $2)
 
-              `
+                `
 
-            queryArray.push(db.query(addPhotos, [id, photos[i]]))
+              queryArray.push(db.query(addPhotos, [id, photos[i]]))
+            }
           }
 
           var addCharacteristicReviews = `
