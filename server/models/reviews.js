@@ -290,7 +290,6 @@ module.exports = {
     return db.query(queryString, [review_id])
   }
 
-
 }
 
 
