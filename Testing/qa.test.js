@@ -19,5 +19,5 @@ describe('Questions and Answers', () => {
     expect(result.data.results[0].answer_id).toEqual(50);
   });
 
-
+  it('')
 })
