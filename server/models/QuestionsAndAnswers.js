@@ -57,57 +57,36 @@ module.exports = {
   },
 
   postQuestion: (postInfo) => {
-    let queryString = 'SELECT MAX(id) FROM questions';
-    return db.query(queryString)
-      .then(id => {
-        queryString =
-          `INSERT INTO
-            questions(id, product_id, body, date_written, asker_name, asker_email, reported, helpful)
-          VALUES
-            ($1, $2, $3, $4, $5, $6, $7, $8)
-          RETURNING id`;
-        return db.query(queryString, [id.rows[0].max + 1, ...postInfo]);
-      })
-      .catch(error => {
-        console.log(error);
-      })
+    let queryString =
+        `INSERT INTO
+          questions(product_id, body, date_written, asker_name, asker_email)
+        VALUES
+          ($1, $2, $3, $4, $5)
+        RETURNING id`;
+    return db.query(queryString, postInfo);
   },
 
   postAnswer: (postInfo) => {
-    let queryString = 'SELECT MAX(id) FROM answers';
-    return db.query(queryString)
-      .then(id => {
-        queryString =
+    let queryString =
         `INSERT INTO
-          answers(id, question_id, body, date_written, answerer_name, answerer_email, reported, helpful)
+          answers(question_id, body, date_written, answerer_name, answerer_email)
         VALUES
-          ($1, $2, $3, $4, $5, $6, $7, $8)
+          ($1, $2, $3, $4, $5)
         RETURNING id`;
-        return db.query(queryString,[id.rows[0].max + 1, ... postInfo]);
-      })
-      .catch(error => {
-        console.log(error);
-      })
+    return db.query(queryString, postInfo);
   },
 
   postPhotos: (answer_id, photos) => {
-    let queryString = 'SELECT MAX(id) FROM answers_photos';
-    return db.query(queryString)
-      .then(id => {
-        let intoPhotos = [];
-        queryString =
+    let intoPhotos = [];
+    let queryString =
         `INSERT INTO
-          answers_photos(id, answer_id, url)
+          answers_photos(answer_id, url)
         VALUES
-          ($1, $2, $3)`;
-        for (let i = 0; i < photos.length; i++) {
-          intoPhotos.push(db.query(queryString, [(id.rows[0].max + i + 1), answer_id, photos[i]]));
-        }
-        return Promise.all(intoPhotos);
-      })
-      .catch(error => {
-        console.log(error);
-      })
+          ($1, $2)`;
+    for (let i = 0; i < photos.length; i++) {
+      intoPhotos.push(db.query(queryString, [answer_id, photos[i]]));
+    }
+    return Promise.all(intoPhotos);
   },
 
   updateHelpful: (table, id) => {

@@ -83,7 +83,7 @@ module.exports = {
   },
 
   postQuestion: (req, res) => {
-    let postInfo = [req.query.product_id, req.body.body, new Date().getTime(), req.body.name, req.body.email, 0, 0];
+    let postInfo = [req.query.product_id, req.body.body, new Date().getTime(), req.body.name, req.body.email];
     models.postQuestion(postInfo)
       .then(data => {
         res.status(201).end();
@@ -95,7 +95,7 @@ module.exports = {
   },
 
   postAnswer: (req, res) => {
-    let postInfo = [req.params.question_id, req.body.body, new Date().getTime(), req.body.name, req.body.email, 0, 0];
+    let postInfo = [req.params.question_id, req.body.body, new Date().getTime(), req.body.name, req.body.email];
     let photos = req.body.photos;
     models.postAnswer(postInfo)
       .then(data => {
