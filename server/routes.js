@@ -11,7 +11,12 @@ router.put('/qa/answers/:answer_id/helpful', controller.questionsAndAnswers.upda
 router.put('/qa/answers/:answer_id/report', controller.questionsAndAnswers.updateAnswerReport);
 
 // Products API Endpoints
-router.get('/products', controller.Products.get);
+router.get('/products', controller.Products.getProducts);
+router.get('/products/:product_id', controller.Products.getProductData);
+router.get('/products/:product_id/styles', controller.Products.getProductStyle);
+router.get('/products/:product_id/related', controller.Products.getRelated);
+// router.get('/cart', controller.Products.getCart);
+// router.post('/cart', controller.Products.saveCart);
 
 router.get('/reviews', controller.reviews.getReviews);
 
