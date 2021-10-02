@@ -19,5 +19,11 @@ describe('Questions and Answers', () => {
     expect(result.data.results[0].answer_id).toEqual(50);
   });
 
-  it('')
+  it('should post a question to the database', async () => {
+    let body = {
+      body: 'This is a test question',
+      name: 'examination',
+      email: 'test.1@gmail.com'
+    }
+  })
 })
