@@ -30,6 +30,40 @@ module.exports = {
         res.json(productReview);
       }
     })
+  },
 
+  postReview: function(req, res) {
+    // console.log(req.body)
+    models.reviews.postAReview(req.body)
+      .then(() => {
+        res.sendStatus(201)
+      })
+      .catch(err => {
+        console.log(err)
+        res.send(err)
+      })
+  },
+
+  markHelpful: function(req, res) {
+    models.reviews.updateHelpful(req.params.review_id)
+      .then(data => {
+        res.sendStatus(200)
+      })
+      .catch(err => {
+        console.log(err)
+        res.sendStatus(400)
+      })
+  },
+
+  markReported: function(req, res) {
+    models.reviews.reported(req.params.review_id)
+      .then(data => {
+        res.sendStatus(200)
+      })
+      .catch(err => {
+        res.sendStatus(400)
+      })
   }
+
+
 }

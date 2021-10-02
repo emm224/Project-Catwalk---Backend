@@ -45,7 +45,8 @@ module.exports = {
       left join photo_summary ps
       on ps.review_id = r.id
 
-      where r.product_id = $1
+      where r.product_id = $1 and r.reported != true
+
 
       limit $2 offset (($3 - 1) * $2)
       `
@@ -66,9 +67,9 @@ module.exports = {
     })
   },
 
-  getMetadata: function(product_id, callback) {
+  getMetadata: function (product_id, callback) {
     var queryString =
-    `with avg_rating as
+      `with avg_rating as
     (
       select
         c.id,
@@ -210,7 +211,6 @@ module.exports = {
 
    select
       *
-
    from
     metadata
 
@@ -224,11 +224,73 @@ module.exports = {
         callback(null, result.rows)
       }
     })
+  },
+
+  postAReview: function (params) {
+
+    var fields = [params.product_id, params.rating, params.summary, params.body, params.recommend, params.name, params.email];
+    var photos = params.photos
+    var charList = params.characteristics
+
+    var addReviewInfo = `
+    insert into
+      reviews (product_id, rating, date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)
+
+    values
+      ($1, $2, ${Date.now()}, $3, $4, $5, false, $6, $7, 'null', 0)
+
+    returning
+      id
+    `
+
+    return db.query(addReviewInfo, fields)
+      .then(
+        id => {
+          var id = id.rows[0].id
+          console.log('this is id', id)
+          let queryArray = [];
+
+          for (var i = 0; i < photos.length; i++) {
+            var addPhotos = `
+              insert into
+                photos(review_id, url)
+              values
+                ($1, $2)
+
+              `
+
+            queryArray.push(db.query(addPhotos, [id, photos[i]]))
+          }
+
+          var addCharacteristicReviews = `
+                  INSERT INTO
+                    characteristic_reviews(characteristic_id, review_id, value)
+                  VALUES
+                    ($1, $2, $3)`
+          for (let characteristic in charList) {
+            console.log('this is charlist obj', [characteristic, id, charList[characteristic]])
+            queryArray.push(db.query(addCharacteristicReviews, [characteristic, id, charList[characteristic]]));
+          }
+
+        return Promise.all(queryArray)
+        }
+      );
+  },
+
+  updateHelpful: function(review_id) {
+    var queryString = 'update reviews set helpfulness = helpfulness+1 where id = $1'
+    console.log('this is review id', review_id)
+    return db.query(queryString, [review_id])
+  },
+
+  reported: function(review_id) {
+    var queryString = 'update reviews set reported = true where id = $1'
+    return db.query(queryString, [review_id])
   }
 
 
-
 }
+
 
 
 
