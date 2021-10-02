@@ -82,3 +82,19 @@ COPY photos(id,review_id,url)
 FROM '/home/emm29776/hackreactor/SDC/SDC/database/Reviews/CSV_Files/reviews_photos.csv'
 DELIMITER ','
 CSV HEADER;
+
+
+-- -- Get Max ID from table
+-- SELECT MAX(id) FROM reviews;
+
+-- -- Get Next ID from table
+-- SELECT nextval('reviews_id_seq');
+
+-- set NextID Value to MAX ID
+SELECT setval('reviews_id_seq', (SELECT MAX(id) FROM reviews));
+
+SELECT setval('characteristics_id_seq', (SELECT MAX(id) FROM characteristics));
+
+SELECT setval('characteristic_reviews_id_seq', (SELECT MAX(id) FROM characteristic_reviews));
+
+SELECT setval('photos_id_seq', (SELECT MAX(id) FROM photos));
