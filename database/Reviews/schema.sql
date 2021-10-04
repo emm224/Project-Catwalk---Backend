@@ -82,3 +82,30 @@ COPY photos(id,review_id,url)
 FROM '/home/emm29776/hackreactor/SDC/SDC/database/Reviews/CSV_Files/reviews_photos.csv'
 DELIMITER ','
 CSV HEADER;
+
+
+-- set indexes to reference foreign keys
+CREATE INDEX r_reviews_index ON reviews(id);
+CREATE INDEX r_product_id_index ON reviews(product_id);
+CREATE INDEX c_product_id_index ON characteristics(product_id);
+CREATE INDEX characteristic_id_index ON characteristic_reviews(characteristic_id);
+CREATE INDEX cr_review_id_index ON characteristic_reviews(review_id);
+CREATE INDEX photo_review_id_index ON photos(review_id);
+CREATE INDEX reported_index ON reviews(reported);
+
+
+
+-- -- Get Max ID from table
+-- SELECT MAX(id) FROM reviews;
+
+-- -- Get Next ID from table
+-- SELECT nextval('reviews_id_seq');
+
+-- set NextID Value to MAX ID
+SELECT setval('reviews_id_seq', (SELECT MAX(id) FROM reviews));
+
+SELECT setval('characteristics_id_seq', (SELECT MAX(id) FROM characteristics));
+
+SELECT setval('characteristic_reviews_id_seq', (SELECT MAX(id) FROM characteristic_reviews));
+
+SELECT setval('photos_id_seq', (SELECT MAX(id) FROM photos));
