@@ -1,5 +1,6 @@
 node_modules
 coverage
+Testing
 database/QuestionsAndAnswers/CSV_files
 database/Products/csv
 .DS_Store
