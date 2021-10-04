@@ -226,7 +226,7 @@ module.exports = {
 
    return db.query(queryString, [product_id])
     .then(result => {
-      return result.rows
+      return result.rows[0]
     })
     .catch(err => {
       return err

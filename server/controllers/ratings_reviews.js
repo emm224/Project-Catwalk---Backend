@@ -36,7 +36,7 @@ module.exports = {
     // console.log(req.body)
     models.reviews.postAReview(req.body)
       .then(() => {
-        res.sendStatus(201)
+        res.status(201).send('review created')
       })
       .catch(err => {
         console.log(err)
