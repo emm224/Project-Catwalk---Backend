@@ -1,16 +1,19 @@
 const db = require('./../../database').Products;
 
 module.exports = {
-  getProducts: () => {
-    const query = 'SELECT * FROM products LIMIT 5';
+  getProducts: (count, page) => {
+    const query = `SELECT * FROM products
+    LIMIT ($1) OFFSET (($2 - 1) * $1)`;
+    const args = [count, page];
     return new Promise((resolve, reject) => {
-      db.query(query, (error, data) => {
+      db.query(query, args, (error, data) => {
         if (error) reject(error);
         const queryData = [];
         for (let i = 0; i < data.rows.length; i++) {
           const currentData = {
             id: data.rows[i].id,
-            name: data.rows[i].slogan,
+            name: data.rows[i].name,
+            slogan: data.rows[i].slogan,
             description: data.rows[i].description,
             category: data.rows[i].category,
             default_price: String(`${data.rows[i].default_price}.00`)
