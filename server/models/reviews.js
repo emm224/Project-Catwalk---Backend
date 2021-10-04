@@ -2,30 +2,39 @@ const db = require('../../database').reviews;
 
 module.exports = {
   getAll: function (callback) {
-    db.query('SELECT * FROM reviews Limit 25', (err, reviewData) => {
-      if (err) {
-        callback(err)
-      } else {
-        callback(null, reviewData)
-      }
-    });
+    return db.query('SELECT * FROM reviews Limit 25');
   },
 
-  getReview: function (product_id, pageNum, numReviews, callback) {
+  getReview: function (product_id, pageNum, numReviews) {
     let queryString =
 
       // select review of the input product id
       // 'SELECT * FROM reviews WHERE product_id = $1'
       // left join reviews table with my photos table hwere review id matches
 
-      `with photo_summary as
+      `with product_reviews as
+
       (
-         select review_id
-       , json_agg(row_to_json((SELECT t FROM (SELECT id, url) t))) AS photo_info
+        select *
 
-        from photos
+        from
+          reviews
 
-        group by 1
+        where product_id = $1
+      ),
+
+      photo_summary as
+      (
+         select photos.review_id
+       , json_agg(row_to_json((SELECT t FROM (SELECT photos.id, photos.url) t))) AS photo_info
+
+        from product_reviews
+
+        left join photos
+
+        on photos.review_id = product_reviews.id
+
+        group by photos.review_id
       )
 
       select
@@ -38,7 +47,7 @@ module.exports = {
       , to_timestamp(r.date/1000) as date
       , r.reviewer_name
       , r.helpfulness
-      , ps.photo_info as photos
+      , coalesce(ps.photo_info, '[]') as photos
 
       from reviews r
 
@@ -51,23 +60,22 @@ module.exports = {
       limit $2 offset (($3 - 1) * $2)
       `
       ;
-    db.query(queryString, [product_id, numReviews || 5, pageNum || 1], (err, result) => {
-      if (err) {
-        console.log(err)
-        callback(err)
-      } else {
-        var reviews = {
-          product: product_id,
-          page: pageNum || '1',
-          count: numReviews || '5',
-          results: result.rows
-        }
-        callback(null, reviews)
-      }
-    })
-  },
+    return db.query(queryString, [product_id, numReviews || 5, pageNum || 1])
+        .then( (result) => {
+          var reviews = {
+            product: product_id,
+            page: pageNum || '1',
+            count: numReviews || '5',
+            results: result.rows
+          }
+          return reviews
+        })
+        .catch(err => {
+          return err
+        })
+      },
 
-  getMetadata: function (product_id, callback) {
+  getMetadata: function (product_id) {
     var queryString =
       `with avg_rating as
     (
@@ -216,13 +224,12 @@ module.exports = {
 
     `;
 
-    db.query(queryString, [product_id], (err, result) => {
-      if (err) {
-        console.log(err)
-        callback(err)
-      } else {
-        callback(null, result.rows)
-      }
+   return db.query(queryString, [product_id])
+    .then(result => {
+      return result.rows
+    })
+    .catch(err => {
+      return err
     })
   },
 
