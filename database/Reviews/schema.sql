@@ -84,6 +84,17 @@ DELIMITER ','
 CSV HEADER;
 
 
+-- set indexes to reference foreign keys
+CREATE INDEX r_reviews_index ON reviews(id);
+CREATE INDEX r_product_id_index ON reviews(product_id);
+CREATE INDEX c_product_id_index ON characteristics(product_id);
+CREATE INDEX characteristic_id_index ON characteristic_reviews(characteristic_id);
+CREATE INDEX cr_review_id_index ON characteristic_reviews(review_id);
+CREATE INDEX photo_review_id_index ON photos(review_id);
+CREATE INDEX reported_index ON reviews(reported);
+
+
+
 -- -- Get Max ID from table
 -- SELECT MAX(id) FROM reviews;
 
