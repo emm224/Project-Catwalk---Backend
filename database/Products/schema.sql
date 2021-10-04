@@ -113,3 +113,11 @@ COPY cart(id,user_session,product_id,active)
 FROM '/Users/sebastian/Desktop/System Design Capstone/SDC/database/Products/csv/cart.csv'
 DELIMITER ','
 CSV HEADER;
+
+-- Indexing
+CREATE INDEX id_index ON products (id);
+CREATE INDEX feature_index ON features (product_id);
+CREATE INDEX productId_index ON styles (productId);
+CREATE INDEX photos_index ON photos (styleId);
+CREATE INDEX skus_index ON skus (styleId);
+CREATE INDEX related_index ON related (current_product_id);

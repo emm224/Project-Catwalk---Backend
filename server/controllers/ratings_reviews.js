@@ -2,34 +2,34 @@ var models = require('../models')
 
 module.exports = {
   getReviews: function (req, res) {
-    models.reviews.getAll((err, productReview) => {
-      if (err) {
-        res.send(400 + ' Product Reviews was not found');
-      } else {
+    models.reviews.getAll()
+    .then( productReview => {
         res.json(productReview);
-      }
+    })
+    .catch(err => {
+      res.send(400)
     })
   },
 
   getProductReviews: function (req, res) {
-    models.reviews.getReview(req.query.product_id, req.query.pageNum, req.query.numReviews, (err, productReview) => {
-      if (err) {
-        res.send(400 + ' Product Reviews was not found');
-      } else {
-        res.json(productReview);
-      }
+    models.reviews.getReview(req.query.product_id, req.query.pageNum, req.query.numReviews)
+    .then( productReview => {
+      res.json(productReview);
+    })
+    .catch(err => {
+      res.send(400)
     })
   },
 
   getReviewMetadata: function (req, res) {
 
-    models.reviews.getMetadata(req.query.product_id, (err, productReview) => {
-      if (err) {
-        res.send(400 + ' Product Review Meta Data was not found');
-      } else {
-        res.json(productReview);
-      }
-    })
+    models.reviews.getMetadata(req.query.product_id)
+      .then( metaData => {
+        res.json(metaData)
+      })
+      .catch( err => {
+        res.send(400)
+      })
   },
 
   postReview: function(req, res) {
