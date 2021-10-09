@@ -11,10 +11,11 @@
 
 # Description
 
-> Design, construct, and optimize an API service to support the front end application of an e-commerce site.
+> Construct and optimize a server and database to support the front end application of an e-commerce site.
 
 # Team Members
-[Team Noctis](https://github.com/NoctisSDC/SDC)
+[Team Noctis](https://github.com/NoctisSDC/SDC)<br/>
+
 Ratings and Reviews: Eric Ma (https://github.com/emm224)<br/>
 
 
