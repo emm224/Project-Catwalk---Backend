@@ -1,4 +1,4 @@
-# System Design Capstone - Ratings and Reviews
+# Project Atelier - Ratings and Reviews
 
 > Design an API service that returns the ratings and review data to support a front-end e-commerce website.
 
