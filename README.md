@@ -16,7 +16,7 @@
 # Team Members
 [Team Noctis](https://github.com/NoctisSDC/SDC)<br/>
 
-Ratings and Reviews: Eric Ma (https://github.com/emm224)<br/>
+Ratings and Reviews: [Eric Ma](https://github.com/emm224)<br/>
 
 
 # Technologies Used
