@@ -41,7 +41,7 @@ Jest <img align="left" alt="Jest" width="30px" src="https://raw.githubuserconten
 
 ## Setting Up on Local Machine
 
-1. Fork the repository and clone to your local machine using `git clone https://github.com/Orcus-FEC/FEC.git`
+1. Fork the repository and clone to your local machine using `https://github.com/emm224/Project-Atelier---Backend-Applicaiton.git`
 2. Run `npm install` to download dependencies.
 3. Install PostgreSQL on your machine.
 4. In PosgreSQL create a role with CREATEDB and WITH LOGIN permission, and set a password.
